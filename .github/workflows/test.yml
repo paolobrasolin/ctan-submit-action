@@ -7,13 +7,38 @@ on:
       - 'releases/*'
 
 jobs:
+  real:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: paolobrasolin/ctan-submit@latest
+      with:
+        file_path: htunk.zip
+        fields: |
+          pkg: htunk
+          version: "1.0"
+          author: foobar
+          email: foobar
+          uploader: foobar
+          license: bsd
+          summary: foobar
+
   test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-
     - run: npm ci
-    - run: npm test
     - uses: ./
       with:
-        milliseconds: 1000
+        file_path: htunk.zip
+        fields: |
+          pkg: htunk
+          version: "1.0"
+          author: foobar
+          email: foobar
+          uploader: foobar
+          license: bsd
+          summary: foobar
+
+
+    # TODO: move these before
+    - run: npm test

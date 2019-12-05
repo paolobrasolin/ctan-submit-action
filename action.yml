@@ -1,13 +1,15 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: 'CTAN submit'
+description: 'Performs a submit on the CTAN API to validate or upload a package'
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  version:
+    required: false
+  action:
+    required: false
+    default: 'validate'
+  fields:
     required: true
-    default: '1000'
-outputs:
-  time: # output will be available to future steps 
-    description: 'The message to output'
+  file_path:
+    required: true
 runs:
   using: 'node12'
   main: 'dist/index.js'

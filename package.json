@@ -1,7 +1,7 @@
 {
-  "name": "javascript-action",
-  "version": "1.0.0",
-  "description": "JavaScript Action Template",
+  "name": "ctan-submit-action",
+  "version": "0.1.0",
+  "description": "Performs a submit on the CTAN API to validate or upload a package",
   "main": "index.js",
   "scripts": {
     "lint": "eslint index.js",
@@ -13,22 +13,25 @@
     "url": "git+https://github.com/actions/javascript-action.git"
   },
   "keywords": [
-    "GitHub",
-    "Actions",
-    "JavaScript"
+    "CTAN",
+    "LaTeX",
+    "TeX"
   ],
-  "author": "GitHub",
+  "author": "Paolo Brasolin",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/actions/javascript-action/issues"
+    "url": "https://github.com/paolobrasolin/ctan-submit-action/issues"
   },
-  "homepage": "https://github.com/actions/javascript-action#readme",
+  "homepage": "https://github.com/paolobrasolin/ctan-submit-action",
   "dependencies": {
-    "@actions/core": "^1.1.1"
+    "@actions/core": "^1.1.1",
+    "yaml": "^1.7.2"
   },
   "devDependencies": {
     "@zeit/ncc": "^0.20.5",
     "eslint": "^6.3.0",
-    "jest": "^24.9.0"
+    "eslint-plugin-jest": "^23.1.1",
+    "jest": "^24.9.0",
+    "rewire": "^4.0.1"
   }
 }
