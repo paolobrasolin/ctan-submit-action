@@ -1,14 +1,14 @@
-name: test
-on: [push, pull_request]
+name: nightly
+on:
+  schedule:
+    - cron:  '0 3 * * *'
 
 jobs:
-
-  post:
+  real:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - run: npm ci
-    - uses: ./
+    - uses: paolobrasolin/ctan-submit@master
       with:
         file_path: htunk.zip
         fields: |
@@ -19,10 +19,3 @@ jobs:
           uploader: paolo.brasolin@gmail.com 
           license: mit
           summary: This is a CI test
-
-  test:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-    - run: npm ci
-    - run: npm test
