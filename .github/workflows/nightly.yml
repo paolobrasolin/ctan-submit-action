@@ -1,14 +1,15 @@
-name: nightly
+name: V1 nightly check
 on:
   schedule:
     - cron:  '0 3 * * *'
 
 jobs:
-  real:
+
+  post:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - uses: paolobrasolin/ctan-submit@master
+    - uses: paolobrasolin/ctan-submit-action@v1
       with:
         file_path: htunk.zip
         fields: |

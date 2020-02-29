@@ -1,23 +1,7 @@
-name: test
+name: CI tests
 on: [push, pull_request]
 
 jobs:
-
-  real:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-    - uses: paolobrasolin/ctan-submit-action@master
-      with:
-        file_path: htunk.zip
-        fields: |
-          pkg: htunk
-          version: 0.1.0
-          author: Paolo Brasolin
-          email: paolo.brasolin@gmail.com 
-          uploader: paolo.brasolin@gmail.com 
-          license: mit
-          summary: This is a CI test
 
   post:
     runs-on: ubuntu-latest
@@ -36,7 +20,7 @@ jobs:
           license: mit
           summary: This is a CI test
 
-  test:
+  jest:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
