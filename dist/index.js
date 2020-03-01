@@ -34,7 +34,7 @@ module.exports =
 /******/ 	// the startup function
 /******/ 	function startup() {
 /******/ 		// Load entry module and return exports
-/******/ 		return __webpack_require__(104);
+/******/ 		return __webpack_require__(676);
 /******/ 	};
 /******/
 /******/ 	// run startup
@@ -47,53 +47,7 @@ module.exports =
 /* 2 */,
 /* 3 */,
 /* 4 */,
-/* 5 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-const core = __webpack_require__(470);
-const fs = __webpack_require__(747);
-const path = __webpack_require__(622);
-const YAML = __webpack_require__(521);
-
-const CTAN = __webpack_require__(980);
-
-async function run() {
-  try {
-    core.info("Reading action inputs:");
-
-    const version = core.getInput("version");
-    core.info("  Version: " + JSON.stringify(version));
-
-    const action = core.getInput("action");
-    core.info("  Action: " + JSON.stringify(action));
-
-    const fields = core.getInput("fields", { required: true });
-    const formDataFields = YAML.parse(fields);
-    core.info("  Parameters: " + JSON.stringify(formDataFields));
-
-    const filePath = core.getInput("file_path", { required: true });
-    const formDataFile = fs.createReadStream(filePath);
-    core.info("  Filepath: " + JSON.stringify(path.resolve(formDataFile.path)));
-
-    const formData = { ...formDataFields, file: formDataFile };
-
-    core.info("Starting API request...");
-
-    await CTAN.post({
-      version: version,
-      action: action,
-      formData: formData,
-      logger: core
-    });
-  } catch (error) {
-    core.setFailed(error.message);
-  }
-}
-
-module.exports = run;
-
-
-/***/ }),
+/* 5 */,
 /* 6 */,
 /* 7 */,
 /* 8 */,
@@ -141,7 +95,90 @@ module.exports = require("tls");
 
 /***/ }),
 /* 17 */,
-/* 18 */,
+/* 18 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+const request = __webpack_require__(830);
+const util = __webpack_require__(669);
+
+const BASE_URL = "https://www.ctan.org/submit";
+
+function post({
+  version = undefined,
+  action = "validate",
+  formData = {},
+  logger = console
+} = {}) {
+  return util
+    .promisify(request.post)({
+      url: buildUrl({ version: version, action: action }),
+      formData: formData
+    })
+    .then(({ error, statusCode, body }) => {
+      postCallback(logger, error, statusCode, body);
+    });
+}
+
+function buildUrl({ version = undefined, action = "validate" } = {}) {
+  if (version === undefined) {
+    return [BASE_URL, action].join("/");
+  } else {
+    return [BASE_URL, version, action].join("/");
+  }
+}
+
+function postCallback(logger, error, statusCode, body) {
+  if (error) throw error;
+  logger.info(`CTAN responded with code ${statusCode}`);
+  // NOTE: codes expected to return the log as a JSON list are 200, 404 (sometimes), and 409.
+  logBody(logger, body);
+  // NOTE: documented error codes are only 404, 409, and 500.
+  if (statusCode >= 400) throw "CTAN submit failed: see log for details";
+}
+
+function logBody(logger, body) {
+  const messageList = maybeJSONParse(body);
+  if (Array.isArray(messageList)) {
+    logMessageList(logger, messageList);
+  } else {
+    logger.info("CTAN says " + body);
+  }
+}
+
+function maybeJSONParse(string) {
+  try {
+    return JSON.parse(string);
+  } catch (e) {
+    return null;
+  }
+}
+
+function logMessageList(logger, messageList) {
+  messageList.forEach(message => {
+    const humanMessage = "CTAN says " + JSON.stringify(message);
+    const messageType = message[0];
+    switch (messageType) {
+      case "ERROR":
+        logger.error(humanMessage);
+        break;
+      case "WARNING":
+        logger.warning(humanMessage);
+        break;
+      default:
+        // i.e. "INFO" and everything else
+        logger.info(humanMessage);
+    }
+  });
+}
+
+const CTAN = {
+  post: post
+};
+
+module.exports = CTAN;
+
+
+/***/ }),
 /* 19 */
 /***/ (function(__unusedmodule, exports) {
 
@@ -2329,13 +2366,7 @@ module.exports = {
 /* 101 */,
 /* 102 */,
 /* 103 */,
-/* 104 */
-/***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
-
-__webpack_require__(5)();
-
-
-/***/ }),
+/* 104 */,
 /* 105 */,
 /* 106 */,
 /* 107 */
@@ -17878,7 +17909,53 @@ module.exports = {
 
 /***/ }),
 /* 429 */,
-/* 430 */,
+/* 430 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+const core = __webpack_require__(470);
+const fs = __webpack_require__(747);
+const path = __webpack_require__(622);
+const YAML = __webpack_require__(521);
+
+const CTAN = __webpack_require__(18);
+
+async function run() {
+  try {
+    core.info("Reading action inputs:");
+
+    const version = core.getInput("version");
+    core.info("  Version: " + JSON.stringify(version));
+
+    const action = core.getInput("action");
+    core.info("  Action: " + JSON.stringify(action));
+
+    const fields = core.getInput("fields", { required: true });
+    const formDataFields = YAML.parse(fields);
+    core.info("  Parameters: " + JSON.stringify(formDataFields));
+
+    const filePath = core.getInput("file_path", { required: true });
+    const formDataFile = fs.createReadStream(filePath);
+    core.info("  Filepath: " + JSON.stringify(path.resolve(formDataFile.path)));
+
+    const formData = { ...formDataFields, file: formDataFile };
+
+    core.info("Starting API request...");
+
+    await CTAN.post({
+      version: version,
+      action: action,
+      formData: formData,
+      logger: core
+    });
+  } catch (error) {
+    core.setFailed(error.message);
+  }
+}
+
+module.exports = run;
+
+
+/***/ }),
 /* 431 */
 /***/ (function(__unusedmodule, exports, __webpack_require__) {
 
@@ -26279,7 +26356,13 @@ module.exports = function generate_not(it, $keyword, $ruleType) {
 /***/ }),
 /* 674 */,
 /* 675 */,
-/* 676 */,
+/* 676 */
+/***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
+
+__webpack_require__(430)();
+
+
+/***/ }),
 /* 677 */,
 /* 678 */,
 /* 679 */,
@@ -39686,90 +39769,7 @@ exports.default = Node;
 /* 977 */,
 /* 978 */,
 /* 979 */,
-/* 980 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-const request = __webpack_require__(830);
-const util = __webpack_require__(669);
-
-const BASE_URL = "https://www.ctan.org/submit";
-
-function post({
-  version = undefined,
-  action = "validate",
-  formData = {},
-  logger = console
-} = {}) {
-  return util
-    .promisify(request.post)({
-      url: buildUrl({ version: version, action: action }),
-      formData: formData
-    })
-    .then(({ error, statusCode, body }) => {
-      postCallback(logger, error, statusCode, body);
-    });
-}
-
-function buildUrl({ version = undefined, action = "validate" } = {}) {
-  if (version === undefined) {
-    return [BASE_URL, action].join("/");
-  } else {
-    return [BASE_URL, version, action].join("/");
-  }
-}
-
-function postCallback(logger, error, statusCode, body) {
-  if (error) throw error;
-  logger.info(`CTAN responded with code ${statusCode}`);
-  // NOTE: codes expected to return the log as a JSON list are 200, 404 (sometimes), and 409.
-  logBody(logger, body);
-  // NOTE: documented error codes are only 404, 409, and 500.
-  if (statusCode >= 400) throw "CTAN submit failed: see log for details";
-}
-
-function logBody(logger, body) {
-  const messageList = maybeJSONParse(body);
-  if (Array.isArray(messageList)) {
-    logMessageList(logger, messageList);
-  } else {
-    logger.info("CTAN says " + body);
-  }
-}
-
-function maybeJSONParse(string) {
-  try {
-    return JSON.parse(string);
-  } catch (e) {
-    return null;
-  }
-}
-
-function logMessageList(logger, messageList) {
-  messageList.forEach(message => {
-    const humanMessage = "CTAN says " + JSON.stringify(message);
-    const messageType = message[0];
-    switch (messageType) {
-      case "ERROR":
-        logger.error(humanMessage);
-        break;
-      case "WARNING":
-        logger.warning(humanMessage);
-        break;
-      default:
-        // i.e. "INFO" and everything else
-        logger.info(humanMessage);
-    }
-  });
-}
-
-const CTAN = {
-  post: post
-};
-
-module.exports = CTAN;
-
-
-/***/ }),
+/* 980 */,
 /* 981 */,
 /* 982 */
 /***/ (function(module, __unusedexports, __webpack_require__) {

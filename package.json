@@ -1,6 +1,6 @@
 {
   "name": "ctan-submit-action",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Performs a submit on the CTAN API to validate or upload a package",
   "main": "index.js",
   "scripts": {
