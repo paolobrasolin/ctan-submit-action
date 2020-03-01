@@ -1,4 +1,4 @@
-name: V1 nightly check
+name: V1 nightly test
 on:
   schedule:
     - cron:  '0 3 * * *'

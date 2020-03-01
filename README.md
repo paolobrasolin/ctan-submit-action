@@ -1,7 +1,7 @@
 # `ctan-submit-action`
 
-![Master](https://github.com/paolobrasolin/ctan-submit-action/workflows/CI%20tests/badge.svg?branch=master)
-![V1 nighly check](https://github.com/paolobrasolin/ctan-submit-action/workflows/nightly/badge.svg)
+![V1 nightly test](https://github.com/paolobrasolin/ctan-submit-action/workflows/V1%20nightly%20test/badge.svg)
+![Tests](https://github.com/paolobrasolin/ctan-submit-action/workflows/Tests/badge.svg?branch=master)
 
 This action performs a submit on the CTAN API to validate or upload a package.
 
@@ -88,7 +88,7 @@ jobs:
             summary: This is a CI test
 ```
 
-You can see this very example in action as the `nightly` workflow of this repo:
-* check out [the workflow code](https://github.com/paolobrasolin/ctan-submit-action/blob/v1/.github/workflows/nightly.yml)
-* comb through [the workflow logs](https://github.com/paolobrasolin/ctan-submit-action/actions?query=workflow%3Anightly)
-* admire the badge ![nightly](https://github.com/paolobrasolin/ctan-submit-action/workflows/nightly/badge.svg)
+You can see this very example in action as the `V1 nightly test` workflow of this repo:
+* check out [the workflow code](https://github.com/paolobrasolin/ctan-submit-action/blob/v1/.github/workflows/v1-nightly-test.yml)
+* comb through [the workflow logs](https://github.com/paolobrasolin/ctan-submit-action/actions?query=workflow%3AV1%20nightly%20test)
+* admire the badge ![nightly](https://github.com/paolobrasolin/ctan-submit-action/workflows/V1%20nightly%20test/badge.svg)
