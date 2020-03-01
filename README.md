@@ -1,6 +1,6 @@
 # `ctan-submit-action`
 
-![Master](https://github.com/paolobrasolin/ctan-submit-action/workflows/ci-tests/badge.svg?branch=master)
+![Master](https://github.com/paolobrasolin/ctan-submit-action/workflows/CI%20tests/badge.svg?branch=master)
 ![V1 nighly check](https://github.com/paolobrasolin/ctan-submit-action/workflows/nightly/badge.svg)
 
 This action performs a submit on the CTAN API to validate or upload a package.
