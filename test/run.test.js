@@ -1,6 +1,6 @@
 const YAML = require("yaml");
 
-const run = require("./run");
+const run = require("../src/run");
 
 describe("run", () => {
   const ENV_BAK = process.env;
@@ -19,7 +19,7 @@ describe("run", () => {
   test("failure (invalid inputs)", async () => {
     process.env["INPUT_VERSION"] = "1.0";
     process.env["INPUT_ACTION"] = "validate";
-    process.env["INPUT_FILE_PATH"] = "htunk.zip";
+    process.env["INPUT_FILE_PATH"] = "test/fixtures/htunk.zip";
     process.env["INPUT_FIELDS"] = YAML.stringify({
       pkg: "knuth",
       version: "foobar",
@@ -37,7 +37,7 @@ describe("run", () => {
   test("success", async () => {
     process.env["INPUT_VERSION"] = "1.0";
     process.env["INPUT_ACTION"] = "validate";
-    process.env["INPUT_FILE_PATH"] = "htunk.zip";
+    process.env["INPUT_FILE_PATH"] = "test/fixtures/htunk.zip";
     process.env["INPUT_FIELDS"] = YAML.stringify({
       pkg: "htunk",
       version: "foobar",

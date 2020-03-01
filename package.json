@@ -4,9 +4,9 @@
   "description": "Performs a submit on the CTAN API to validate or upload a package",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint index.js",
-    "package": "ncc build index.js -o dist",
-    "test": "eslint index.js && jest"
+    "lint": "eslint src/*.js test/*.js",
+    "package": "ncc build src/index.js -o dist",
+    "test": "eslint src/*.js test/*.js && jest"
   },
   "repository": {
     "type": "git",

@@ -1,7 +1,7 @@
 const rewire = require("rewire");
 
 // NOTE: we're just testing the internals
-const CTAN = rewire("./ctan");
+const CTAN = rewire("../src/ctan");
 
 describe("buildUrl", () => {
   const buildUrl = CTAN.__get__("buildUrl");

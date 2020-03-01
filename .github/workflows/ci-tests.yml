@@ -10,7 +10,7 @@ jobs:
     - run: npm ci
     - uses: ./
       with:
-        file_path: htunk.zip
+        file_path: test/fixtures/htunk.zip
         fields: |
           pkg: htunk
           version: 0.1.0
