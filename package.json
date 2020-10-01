@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/paolobrasolin/ctan-submit-action",
   "dependencies": {
-    "@actions/core": "^1.1.1",
+    "@actions/core": "^1.2.6",
     "yaml": "^1.7.2"
   },
   "devDependencies": {
