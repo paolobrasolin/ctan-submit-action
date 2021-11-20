@@ -1,0 +1,35 @@
+name: main
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 0 * * *'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm test
+  post:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: CTAN submit (validate only)
+        uses: ./
+        with:
+          action: validate
+          file_path: ${{ github.workspace }}/test/fixtures/htunk.zip
+          fields: |
+            pkg: htunk
+            version: 0.1.0
+            author: Paolo Brasolin
+            email: paolo.brasolin@gmail.com 
+            uploader: paolo.brasolin@gmail.com 
+            license: mit
+            summary: This is a CI test
