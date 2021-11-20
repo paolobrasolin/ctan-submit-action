@@ -12,8 +12,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Install dependencies
         run: npm ci
-      - name: Run tests
-        run: npm test
+      - name: Run linting, build and tests
+        run: npm run all
   post:
     runs-on: ubuntu-latest
     needs: test
