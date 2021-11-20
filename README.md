@@ -1,7 +1,16 @@
-# `ctan-submit-action`
+# CTAN submit
 
-![V1 nightly test](https://github.com/paolobrasolin/ctan-submit-action/workflows/V1%20nightly%20test/badge.svg)
-![Tests](https://github.com/paolobrasolin/ctan-submit-action/workflows/Tests/badge.svg?branch=master)
+[![CI tests status badge][ci-shield]][ci-url]
+
+[![Latest release badge][release-shield]][release-url]
+[![License badge][license-shield]][license-url]
+
+[ci-url]: https://github.com/paolobrasolin/ctan-submit-action/actions/workflows/main.yml "CI tests"
+[ci-shield]: https://img.shields.io/github/workflow/status/paolobrasolin/ctan-submit-action/main/main?label=tests&logo=github
+[release-url]: https://github.com/paolobrasolin/ctan-submit-action/releases "Latest release"
+[release-shield]: https://img.shields.io/github/v/release/paolobrasolin/ctan-submit-action?display_name=tag&sort=semver
+[license-url]: https://github.com/paolobrasolin/ctan-submit-action/blob/main/LICENSE "License"
+[license-shield]: https://img.shields.io/github/license/paolobrasolin/ctan-submit-action
 
 This action performs a submit on the CTAN API to validate or upload a package.
 
