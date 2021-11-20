@@ -1,5 +1,9 @@
-name: 'CTAN submit'
-description: 'Performs a submit on the CTAN API to validate or upload a package'
+name: CTAN submit
+author: Paolo Brasolin <paolo.brasolin@gmail.com>
+description: Call the CTAN API to validate or upload a package
+branding:
+  icon: box
+  color: white
 inputs:
   version:
     required: false
