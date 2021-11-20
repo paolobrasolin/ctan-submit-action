@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint src/*.js test/*.js",
-    "package": "ncc build src/index.js -o dist",
-    "test": "eslint src/*.js test/*.js && jest"
+    "prepare": "ncc build src/index.js -o dist --source-map --license licenses.txt",
+    "test": "jest",
+    "all": "npm run lint && npm run prepare && npm run test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/javascript-action.git"
+    "url": "git+https://github.com/paolobrasolin/ctan-submit-action.git"
   },
   "keywords": [
     "CTAN",
