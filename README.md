@@ -6,7 +6,7 @@
 [![License badge][license-shield]][license-url]
 
 [ci-url]: https://github.com/paolobrasolin/ctan-submit-action/actions/workflows/main.yml "CI tests"
-[ci-shield]: https://img.shields.io/github/workflow/status/paolobrasolin/ctan-submit-action/main/main?label=tests&logo=github
+[ci-shield]: https://img.shields.io/github/actions/workflow/status/paolobrasolin/ctan-submit-action/main.yml?branch=main&label=tests&logo=github
 [release-url]: https://github.com/paolobrasolin/ctan-submit-action/releases "Latest release"
 [release-shield]: https://img.shields.io/github/v/release/paolobrasolin/ctan-submit-action?display_name=tag&sort=semver
 [license-url]: https://github.com/paolobrasolin/ctan-submit-action/blob/main/LICENSE "License"
@@ -30,7 +30,7 @@ Effectively, the latest CTAN API version will be addressed by default.
 That is most probably what you want.
 
 Currently versions `1.1` and `1.0` (deprecated) exist.
-More details at [Submitting to CTAN](https://ctan.org/help/submit/).
+More details at [Submitting to CTAN](https://ctan.org/help/submit/).
 
 #### `action`
 
@@ -40,13 +40,13 @@ This input is **not required** and **defaults to `validate`**.
 
 Allowed values are:
 
-* `validate` to validate your submission.
+- `validate` to validate your submission.
   More details at [Sending a Validation Request to CTAN
-](https://ctan.org/help/submit/#validation)
+  ](https://ctan.org/help/submit/#validation)
 
-* `upload` to validate and upload your submission.
+- `upload` to validate and upload your submission.
   More details at [Sending a Submission Request to CTAN
-](https://ctan.org/help/submit/#submit)
+  ](https://ctan.org/help/submit/#submit)
 
 #### `file_path`
 
@@ -97,7 +97,8 @@ jobs:
             summary: This is a CI test
 ```
 
-You can see this very example in action as the `V1 nightly test` workflow of this repo:
-* check out [the workflow code](https://github.com/paolobrasolin/ctan-submit-action/blob/v1/.github/workflows/v1-nightly-test.yml)
-* comb through [the workflow logs](https://github.com/paolobrasolin/ctan-submit-action/actions?query=workflow%3AV1%20nightly%20test)
-* admire the badge ![nightly](https://github.com/paolobrasolin/ctan-submit-action/workflows/V1%20nightly%20test/badge.svg)
+You can see this very example in action as the `main` workflow of this repo, running nightly:
+
+- check out [the workflow code](https://github.com/paolobrasolin/ctan-submit-action/blob/main/.github/workflows/main.yml)
+- comb through [the workflow logs](https://github.com/paolobrasolin/ctan-submit-action/actions?query=event%3Aschedule)
+- admire the badge ![nightly][ci-shield]
